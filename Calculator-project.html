@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+    <style>
+      body {
+        background-color: black;
+      }
+
+      .keys{
+        background-color: rgb(51,51,51);
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 60px;
+        margin-right: 6px;
+        color:white;
+        font-size: 25px;
+      }
+
+      .keys-operator {
+        background-color: rgb(254,160,10);
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 60px;
+        margin-right: 6px;
+        color:white;
+        font-size: 25px;
+      }
+
+      .screen-display {
+        color: white;
+        margin-left: 20px;
+        font-size:40px;
+        font-family: Arial;
+      }
+
+      .clear-button {
+        background-color: rgb(51,51,51);
+        border: none;
+        width: 110px;
+        height: 40px;
+        border-radius: 60px;
+        margin-right: 6px;
+        color:white;
+        font-size: 20px;
+      }
+
+      .prev-button  {
+        background-color: rgb(51,51,51);
+        border: none;
+        width: 170px;
+        height: 40px;
+        border-radius: 60px;
+        margin-right: 6px;
+        color:white;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <p class = 'js-calc screen-display'></p>
+
+    <p>
+    <button onclick = "
+      updateCalc(7);
+    " class = "keys">7</button>
+
+    <button onclick = "
+      updateCalc(8);
+    " class = "keys">8</button>
+
+    <button onclick = "
+      updateCalc(9);
+    " class = "keys">9</button>
+
+    <button onclick = "
+      updateCalc(' - ');
+    " class = "keys-operator">-</button>
+    </p>
+
+    <p>
+    <button onclick = "
+      updateCalc(4);
+    " class = "keys">4</button>
+
+    <button onclick = "
+      updateCalc(5);
+    " class = "keys">5</button>
+
+    <button onclick = "
+      updateCalc(6);
+    " class = "keys">6</button>
+
+    <button onclick = "
+      updateCalc(' * ');
+    " class = "keys-operator"> * </button>
+    </p>
+
+    <p>
+    <button onclick = "
+      updateCalc(1);
+    " class = "keys">1</button>
+
+    <button onclick = "
+      updateCalc(2);
+    " class = "keys">2</button>
+
+    <button onclick = "
+      updateCalc(3);
+    " class = "keys">3</button>
+
+    <button onclick = "
+      updateCalc(' + ');
+    " class = "keys-operator"> + </button>
+    </p>
+
+    <p>  
+    <button onclick = "
+      updateCalc(0);
+    " class = "keys">0</button>
+
+    <button onclick = "
+      updateCalc('.');
+    " class = "keys"> . </button>
+
+    <button onclick = "
+      calculationFinal = eval(calculation);
+      console.log(calculationFinal);
+      localStorage.setItem('calculationFinal', calculationFinal);
+      //localStorage.setItem('calculation', calculation);
+      document.querySelector('.js-calc').innerHTML = `${calculationFinal}`;
+      calculation = '';
+    " class = "keys"> = </button>
+
+    <button onclick = "
+      updateCalc(' / ');
+    " class = "keys-operator"> / </span> </button>
+    </p>
+    
+    <button onclick = "
+      calculation = '';
+      document.querySelector('.js-calc').innerHTML = calculation;
+    " class = "clear-button">clear</button>
+
+    <button onclick = "
+    calculation += localStorage.getItem('calculationFinal');
+    document.querySelector('.js-calc').innerHTML += localStorage.getItem('calculationFinal');
+    //console.log(calculation);
+    " class = "prev-button"> prev. answer </button>
+
+    <script>
+      let calculation = localStorage.getItem('calculation') || '';
+
+      displayScreen();
+
+      function updateCalc(value) {
+        calculation += value;
+        console.log(calculation);
+        saveCalc(calculation); 
+        document.querySelector('.js-calc').innerHTML = calculation;
+      }
+
+      function saveCalc(calculation) {
+        localStorage.setItem('calculation', calculation);
+      }
+
+      function displayScreen() {
+        document.querySelector('.js-calc').innerHTML = calculation;
+      }
+    </script>
+  </body>
+</html>
