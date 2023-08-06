@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rock, paper, scissors</title>
+    <link rel = "stylesheet" href = "Rock-paper-scissors/rock-paper-scissors-css.css">
+  </head>
+  <body>
+    <p class = 'title'> Rock Paper Scissors</p>
+
+    <button onclick = "
+      playerChoice = 0;
+      compChoice = Math.round(Math.random(1) * 2);
+      playGame(compChoice);
+    " class = 'move-button'><img src = "images/rock.png" class = 'move-icon'></button>
+
+    <button onclick = "
+      playerChoice = 1;
+      compChoice = Math.round(Math.random(1) * 2);
+      playGame(compChoice);
+    " class = 'move-button'><img src = "images/paper.png" class = 'move-icon'></button>
+
+    <button onclick = "
+      playerChoice = 2;
+      compChoice = Math.round(Math.random(1) * 2); 
+      playGame(compChoice);
+    " class = 'move-button'><img src = "images/scissors.png" class = 'move-icon'></button>
+    
+    <p class = 'js-result display-result-style'></p>
+    <p class = 'js-choice display-move-style'></p>
+    <p class = 'js-score-tracker score-holder'></p>
+
+    <button class = "plain reset-style" onclick = "
+      localStorage.removeItem('gameScore');
+      score.wins = 0;
+      score.losses = 0;
+      score.ties = 0;
+      //alert(`Score has been reset. Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
+      onScreenScore();
+      document.querySelector('.js-result').innerHTML = '';
+      document.querySelector('.js-choice').innerHTML = '';
+    ">Reset score</button>
+
+    <script src="Rock-paper-scissors/rock-paper-scissors-js.js"></script>
+  </body>
+</html>

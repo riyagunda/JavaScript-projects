@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOM projects</title>
+    <style>
+      body {
+        font-family:Arial, Helvetica, sans-serif;
+      }
+
+      .subscribe-button {
+        background-color: black;
+        color: white;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-right: 15px;
+        padding-left: 15px;
+        font-weight: bold;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        margin-bottom: 50px;
+      }
+
+      .subscribed {
+        background-color: rgb(240,240,240);
+        color: black;
+      }
+
+      .cost-input-style {
+        font-size: 15px;
+        padding: 10px;
+      }
+
+      .calculate-button-style {
+        background-color: green;
+        color: white;
+        border: none;
+        font-size: 15px;
+        padding: 12px 15px;
+        cursor: pointer;
+      }
+
+      .red-error{
+        color:red;
+      }
+    </style>
+  </head>
+  <body>
+    <p>YouTube Subscribe Button</p>
+    <button onclick = "
+      subscribe();
+    " class = "js-subscribe-button subscribe-button">Subscribe</button>
+
+    <p> Rock Paper Scissors</p>
+    <p><a href="">Click here</a><br><br><br></p>
+
+    <p>Amazon Shipping Calculator</p>
+    <p>Orders under $40 = + $10 shipping.</p>
+    <p>Order above $40 = FREE shipping.</p>
+    <input placeholder="Cost of order" class = 'js-cost-value cost-input-style' onkeydown=" enterKey(event); ">
+    <button onclick = "
+      calcShipping();
+    " class = 'calculate-button-style'>Calculate</button>
+    <p class = 'js-total-cost'></p>
+
+    <script>
+      const buttonElement = document.querySelector('.js-subscribe-button');
+      function subscribe() {
+        if(buttonElement.innerText === 'Subscribe') {
+          document.querySelector('.js-subscribe-button').innerHTML = 'Subscribed';
+          buttonElement.classList.add('subscribed');
+        } else {
+          document.querySelector('.js-subscribe-button').innerHTML = 'Subscribe';
+          buttonElement.classList.remove('subscribed');
+        }
+      }
+
+      function calcShipping() {
+        let cost = Number(document.querySelector('.js-cost-value').value);
+        if(cost < 0) {
+          document.querySelector('.js-total-cost').innerHTML = 'Error: cost cannot be less than $0';
+          document.querySelector('.js-total-cost').classList.add('red-error');
+          return;
+        } else {
+          if(document.querySelector('.js-total-cost').classList.contains('red-error')) {
+            document.querySelector('.js-total-cost').classList.remove('red-error')
+          }
+          cost < 40 ? cost = ((cost*100) + 1000)/100 : cost = cost;
+          document.querySelector('.js-total-cost').innerHTML = '$' + cost;
+        }
+      }
+
+      function enterKey(event) {
+        if (event.key == 'Enter') {
+          calcShipping();
+        }
+      }
+    </script>
+  </body>
+</html>

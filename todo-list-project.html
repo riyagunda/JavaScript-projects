@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>To-do list</title>
+    <style>
+      body {
+        font-family: Arial;
+      }
+
+      .delete-style {
+        color: white;
+        background-color: darkred;
+        border: none;        
+        font-size: 15px;
+        padding-top: 10px;
+        padding-bottom:10px;
+        cursor: pointer;
+      }
+
+      .todo-grid, .title-grid{
+        display: grid;
+        grid-template-columns: 180px 150px 100px;
+        column-gap: 10px;
+        row-gap:10px;
+        align-items : center;
+      }
+
+      .title-grid{
+        margin-bottom: 10px;
+        align-items: stretch;
+      }
+
+      .todo-name-style, .todo-date-style {
+        font-size: 15px;
+        padding: 6px;
+      }
+
+      .add-style {
+        background-color: green;
+        color: white;
+        border: none;
+        font-size: 15px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Todo List</p>
+
+    <div class = "title-grid">
+      <input placeholder="Task name" class = "js-task-name todo-name-style">
+
+      <input type = "date" placeholder = "yyyy-mm-dd" class = "js-date todo-date-style">
+
+      <button onclick = "
+        addToList();
+        //addDateToList();
+        printTask();
+      " class = 'add-style'>Add</button>
+    </div>
+
+    <div class = "js-list todo-grid"></div>
+
+    <script>
+    let tasks = [];
+     if(JSON.parse(localStorage.getItem('tasks')) === null){
+      tasks = [{name : 'riya', date : '2022-12-22'}];
+     } else {
+      tasks = JSON.parse(localStorage.getItem('tasks'));
+     } 
+
+     printTask();
+
+     function addToList() {
+      const todoTask = document.querySelector('.js-task-name').value;
+      const todoDate = document.querySelector('.js-date').value
+      tasks.push({name: todoTask, date : todoDate});
+      document.querySelector('.js-task-name').value = '';
+      //document.querySelector('.js-date').value = '';
+      console.log(tasks);
+      printTask();
+
+      saveTasks();
+      //localStorage.setItem('tasks', JSON.stringify(tasks));
+     }
+
+     function printTask() {
+      let todoList = '';
+      let html = '';
+      for(let i = 0; i < tasks.length; i++) {
+        html = `
+          <div>${tasks[i].name}</div> 
+          <div>${tasks[i].date}</div>
+          <button onclick = "
+          tasks.splice(${i}, 1);
+          printTask();
+          console.log(tasks);
+        " class = "delete-style">Delete</button>`;
+        todoList += html;
+      }
+      document.querySelector('.js-list').innerHTML = todoList;
+      saveTasks(todoList);
+    }
+
+    function saveTasks() {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }    
+    </script>
+  </body>
+</html>
